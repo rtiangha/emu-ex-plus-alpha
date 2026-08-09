@@ -9,7 +9,7 @@ set(CTARGET arm-linux-androideabi)
 set(ANDROID_CTARGET armv7-none-linux-androideabi21)
 set(ANDROID_NDK_SDK 9)
 set(CFLAGS_CODEGEN "-march=armv7-a -mthumb -mtune=generic")
-set(LDFLAGS "-Wl,--fix-cortex-a8")
+set(LDFLAGS "-Wl,-lc,--fix-cortex-a8")
 set(LIBCXX_SUPPORT_LIBS "-landroid_support")
 set(CMAKE_ASM_FLAGS_INIT "-Wa,--noexecstack,-EL -march=armv7-a")
 

@@ -16,7 +16,7 @@ android_armState := $(android_armv7State)
 android_cpuFlags += $(android_armv7State)
 android_cxxSupportLibs := -landroid_support
 ASMFLAGS = --noexecstack -EL -mfloat-abi=softfp -march=armv7-a
-LDFLAGS_SYSTEM += -Wl,--fix-cortex-a8
+LDFLAGS_SYSTEM += -Wl,-lc,--fix-cortex-a8
 
 include $(buildSysPath)/android-gcc.mk
 
