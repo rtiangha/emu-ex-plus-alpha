@@ -4,9 +4,9 @@ ARCH := aarch64
 SUBARCH = arm64
 CHOST := aarch64-linux-android
 android_abi := arm64-v8a
-android_ndkSDK ?= 21
+android_ndkSDK ?= 35
 android_ndkArch := arm64
-clangTarget := aarch64-none-linux-android21
+clangTarget := aarch64-none-linux-android35
 CFLAGS_CODEGEN += -fPIC
 LDFLAGS_SYSTEM += -Wl,-z,max-page-size=16384
 
