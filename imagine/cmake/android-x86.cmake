@@ -8,6 +8,7 @@ set(CTARGET i686-linux-android)
 set(ANDROID_CTARGET i686-none-linux-android21)
 set(ANDROID_NDK_SDK 16)
 set(CFLAGS_CODEGEN "-mstackrealign")
+set(LDFLAGS "-Wl,-lc")
 set(LIBCXX_SUPPORT_LIBS "-landroid_support")
 
 include("${CMAKE_CURRENT_LIST_DIR}/android.cmake")
