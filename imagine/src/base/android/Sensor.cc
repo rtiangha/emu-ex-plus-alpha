@@ -19,11 +19,24 @@
 #include <imagine/util/utility.hh>
 #include <imagine/logger/SystemLogger.hh>
 #include <android/sensor.h>
+#include <android/looper.h>
+#include <array>
+#include <memory>
 
 namespace IG
 {
 
 static SystemLogger log{"Sensor"};
+
+// ASensorManager_getInstance() is deprecated since API 26 but still available,
+// so wrap it to avoid failing builds that treat deprecation warnings as errors
+static ASensorManager *getSensorManager()
+{
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+	return ASensorManager_getInstance();
+#pragma GCC diagnostic pop
+}
 
 // verify SensorType maps to Sensor.TYPE_*
 static_assert(to_underlying(SensorType::Accelerometer) == 1);
@@ -31,7 +44,7 @@ static_assert(to_underlying(SensorType::Gyroscope) == 4);
 static_assert(to_underlying(SensorType::Light) == 5);
 
 SensorListener::SensorListener(ApplicationContext, SensorType type, SensorChangedDelegate del):
-	AndroidSensorListener{ASensorManager_getInstance(), type, del} {}
+	AndroidSensorListener{getSensorManager(), type, del} {}
 
 AndroidSensorListener::AndroidSensorListener(ASensorManager *manager, SensorType type, SensorChangedDelegate changedDel):
 	ctrl{std::make_unique<ControlBlock>(ControlBlock{nullptr, changedDel})}
@@ -60,7 +73,7 @@ AndroidSensorListener::AndroidSensorListener(ASensorManager *manager, SensorType
 
 void destroyASensorEventQueue(ASensorEventQueue *queue)
 {
-	ASensorManager_destroyEventQueue(ASensorManager_getInstance(), queue);
+	ASensorManager_destroyEventQueue(getSensorManager(), queue);
 	log.info("destroyed sensor event queue:{}", (void*)queue);
 }
 
