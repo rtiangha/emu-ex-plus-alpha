@@ -20,6 +20,11 @@
 #include <SLES/OpenSLES.h>
 #include <SLES/OpenSLES_Android.h>
 
+// OpenSL ES is marked deprecated in recent NDKs (targeting API 30+), which
+// breaks builds that use -Werror. It's still functional, so silence the warning.
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 namespace IG::Audio
 {
 
@@ -229,3 +234,5 @@ void OpenSLESOutputStream::doBufferCallback(SLAndroidSimpleBufferQueueItf queue)
 }
 
 }
+
+#pragma clang diagnostic pop
