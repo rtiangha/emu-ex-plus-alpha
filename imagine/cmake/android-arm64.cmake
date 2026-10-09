@@ -7,7 +7,7 @@ set(SUBARCH arm64)
 set(CTARGET aarch64-linux-android)
 set(ANDROID_CTARGET aarch64-none-linux-android35)
 set(ANDROID_NDK_SDK 35)
-set(CFLAGS_CODEGEN "-fPIC -march=armv8.2-a+crypto+dotprod+fp16+rcpc")
+set(CFLAGS_CODEGEN "-O3 -fPIC -march=armv8.2-a+crypto+dotprod+fp16+rcpc")
 set(LDFLAGS "-Wl,-z,max-page-size=16384")
 
 include("${CMAKE_CURRENT_LIST_DIR}/android.cmake")
