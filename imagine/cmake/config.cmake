@@ -58,11 +58,11 @@ function(generateConfigHeader target)
 	set(genDir "${CMAKE_BINARY_DIR}/gen")
 	set(configFilePath "${genDir}/${configFilename}")
 	message("Config Header: ${configFilePath}")
+	file(MAKE_DIRECTORY ${genDir})
 	execute_process(
-		COMMAND mkdir -p ${genDir}
 		COMMAND bash ${IMAGINE_PATH}/make/writeConfig.sh "${configFilePath}" "${configEnable}" "${configDisable}" "${configInc}" "${configDefs}"
 		COMMAND_ERROR_IS_FATAL ANY
-	)	
+	)
 	target_include_directories(${target} PRIVATE ${genDir})
 	install(FILES "${configFilePath}" DESTINATION include)
 endFunction()
@@ -149,7 +149,7 @@ endFunction()
 
 function(writePkgConfigFiles target)
 	getJoinedProp(pkgRequires ${target} PKG_CONFIG_TARGET_DEPS)
-	getJoinedProp(pkgLibs ${target} PKG_CONFIG_TARGET_LIBS)	
+	getJoinedProp(pkgLibs ${target} PKG_CONFIG_TARGET_LIBS)
 	foreach(config IN LISTS CMAKE_CONFIGURATION_TYPES)
 		set(targetExt "${TARGET_EXT_${config}}")
 		getJoinedProp(pkgRequiresForConfig ${target} PKG_CONFIG_TARGET_DEPS_${config})
@@ -314,6 +314,7 @@ function(configureAppTarget target)
 	if(NOT metadata_id)
 		message(FATAL_ERROR "metadata_id not defined in metadata/conf.mk")
 	endif()
+	file(MAKE_DIRECTORY ${genDir})
 	file(WRITE ${configFilePath}
 		"#pragma once\n"
 		"#define CONFIG_APP_NAME \"${metadata_name}\"\n"
