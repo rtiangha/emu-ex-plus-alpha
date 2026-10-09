@@ -28,7 +28,7 @@ android_minSDK ?= 9
 # Architecture setup
 
 ifndef android_arch
- android_arch := armv7 arm64 x86 x86_64
+ android_arch := arm64
 endif
 
 android_arch := $(filter-out $(android_noArch),$(android_arch))
