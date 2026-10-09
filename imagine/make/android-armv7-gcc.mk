@@ -4,7 +4,7 @@ ARCH := arm
 SUBARCH = armv7
 CHOST := arm-linux-androideabi
 android_abi := armeabi-v7a
-android_ndkSDK ?= 9
+android_ndkSDK ?= 21
 android_ndkArch := arm
 # Must declare min API 21 to compile with NDK r26+ headers
 clangTarget := armv7-none-linux-androideabi21
@@ -14,7 +14,7 @@ android_cpuFlags ?= $(armv7CPUFlags)
 android_armv7State ?= -mthumb
 android_armState := $(android_armv7State)
 android_cpuFlags += $(android_armv7State)
-android_cxxSupportLibs := -landroid_support
+#android_cxxSupportLibs := -landroid_support
 ASMFLAGS = --noexecstack -EL -mfloat-abi=softfp -march=armv7-a
 LDFLAGS_SYSTEM += -Wl,--fix-cortex-a8
 
